@@ -9,30 +9,14 @@
   <body>
     <div class="main_container">
       <div class="input_container">
-        <input placeholder="Məhsulun adı" type="text" />
-        <input placeholder="Qiyməti" type="text" />
-        <button>Əlavə et</button>
+        <input class="product_name" placeholder="Məhsulun adı" type="text" />
+        <input class="product_price" placeholder="Qiyməti" type="number" />
+        <button onclick="addProduct()">Əlavə et</button>
       </div>
-      <ul class="product_list">
-        <li>
-          <span>Samsung Galaxy S24</span>
-          <span>(2000 AZN)</span>
-          <button>Sil</button>
-        </li>
-        <li>
-          <span>Iphone 15 Pro</span>
-          <span>(2000 AZN)</span>
-          <button>Sil</button>
-        </li>
-        <li>
-          <span>Samsung Galaxy S24</span>
-          <span>(2000 AZN)</span>
-          <button>Sil</button>
-        </li>
-      </ul>
+      <ul class="product_list"></ul>
       <div class="total_container">
-        <div>Ümumi məhsul sayı: <span>3</span></div>
-        <div>Məhsulların toplam dəyəri: <span>6000</span> AZN</div>
+        <div>Ümumi məhsul sayı: <span class="total_product"></span></div>
+        <div>Məhsulların toplam dəyəri: <span class="total_price"></span> AZN</div>
       </div>
     </div>
 
