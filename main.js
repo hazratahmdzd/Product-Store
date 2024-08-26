@@ -58,6 +58,7 @@ getAllProduct();
 
 const addProduct = () => {
   if (productName.value !== "" && productPrice.value !== "") {
+    clearErrors();
     productList = [
       ...productList,
       {
@@ -88,6 +89,13 @@ const addProduct = () => {
     }
   }
 };
+
+const clearErrors = () => {
+  nameError.style.display = "none";
+  productName.classList.remove("error_input");
+  priceError.style.display = "none";
+  productPrice.classList.remove("error_input");
+}
 
 productName.addEventListener("focus", () => {
   nameError.style.display = "none";
