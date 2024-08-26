@@ -8,15 +8,24 @@
   </head>
   <body>
     <div class="main_container">
-      <div class="input_container">
-        <input class="product_name" placeholder="Məhsulun adı" type="text" />
-        <input class="product_price" placeholder="Qiyməti" type="number" />
-        <button onclick="addProduct()">Əlavə et</button>
-      </div>
+      <div class="notifications"></div>
+      <form class="inputs">
+        <div class="input_container">
+          <input class="product_name" placeholder="Məhsulun adı" type="text" />
+          <span class="error_text name_error">Məhsulun adı boş ola bilməz</span>
+        </div>
+        <div class="input_container">
+          <input class="product_price" placeholder="Qiyməti" type="number" />
+          <span class="error_text price_error">Qiymət boş ola bilməz</span>
+        </div>
+        <button type="submit">Əlavə et</button>
+      </form>
       <ul class="product_list"></ul>
       <div class="total_container">
         <div>Ümumi məhsul sayı: <span class="total_product"></span></div>
-        <div>Məhsulların toplam dəyəri: <span class="total_price"></span> AZN</div>
+        <div>
+          Məhsulların toplam dəyəri: <span class="total_price"></span> AZN
+        </div>
       </div>
     </div>
 

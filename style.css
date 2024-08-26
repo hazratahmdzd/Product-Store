@@ -5,6 +5,10 @@
   --input-color: rgba(152, 152, 152, 0.299);
   --list-color: rgba(152, 152, 152, 0.064);
   --delete-button-color: rgb(232, 74, 106);
+  --red-notifications-color: rgba(208, 89, 113, 0.4);
+  --green-color: rgba(0, 128, 0, 0.675);
+  --green-background-color: rgba(11, 187, 11, 0.499);
+  --green-notifications-color: rgb(0, 128, 0);
 }
 
 * {
@@ -24,6 +28,7 @@ body {
   overflow: hidden;
 
   .main_container {
+    position: relative;
     width: 700px;
     height: 700px;
     background-color: var(--white-color);
@@ -32,21 +37,93 @@ body {
     flex-direction: column;
     gap: 30px;
 
-    .input_container {
+    .notifications {
+      width: 500px;
+      height: 125px;
+      position: absolute;
       display: flex;
-      align-items: center;
+      flex-direction: column;
+      justify-content: end;
+      overflow: hidden;
+      gap: 10px;
+      top: -40px;
+      left: 50%;
+      transform: translateX(-50%);
+
+      .notification_div {
+        opacity: 0;
+        padding: 10px;
+        font-size: 14px;
+        position: relative;
+
+        &::after {
+          content: "";
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          height: 5px;
+          width: 100%;
+        }
+      }
+
+      .success_notifications {
+        opacity: 1;
+        background-color: var(--green-background-color);
+        color: var(--green-notifications-color);
+
+        &::after {
+          background-color: var(--green-notifications-color);
+          width: 0;
+          transition: width 3s;
+        }
+      }
+
+      .delete_notifications {
+        opacity: 1;
+        background-color: var(--red-notifications-color);
+        color: var(--delete-button-color);
+
+        &::after {
+          background-color: var(--delete-button-color);
+          width: 0;
+          transition: width 3s;
+        }
+      }
+    }
+
+    .inputs {
+      display: flex;
+      align-items: start;
       justify-content: space-between;
       width: 100%;
 
-      input {
+      .input_container {
         width: 40%;
-        padding: 10px;
-        background-color: var(--input-color);
-        border: none;
-        outline: none;
-        font-size: 16px;
-        color: var(--black-color);
-        font-weight: 300;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        input {
+          width: 100%;
+          padding: 10px;
+          background-color: var(--input-color);
+          border: none;
+          outline: none;
+          font-size: 16px;
+          color: var(--black-color);
+          border: 1px solid var(--input-color);
+          font-weight: 300;
+        }
+
+        .error_input {
+          border: 1px solid var(--delete-button-color);
+        }
+
+        .error_text {
+          display: none;
+          font-size: 12px;
+          font-weight: 200;
+          color: var(--delete-button-color);
+        }
       }
 
       button {
@@ -58,6 +135,7 @@ body {
         cursor: pointer;
         font-size: 16px;
         transition: 0.2s ease-out;
+        border: 1px solid var(--main-color);
 
         &:hover {
           opacity: 0.8;
@@ -113,7 +191,7 @@ body {
       div {
         font-size: 16px;
         font-weight: 300;
-        color: rgba(0, 128, 0, 0.675);
+        color: var(--green-color);
       }
     }
   }
@@ -130,13 +208,19 @@ input[type="number"]::-webkit-outer-spin-button {
       width: 95%;
       height: 70vh;
       margin: auto;
-      padding: 50px 20px;
+      padding: 80px 20px 50px;
 
-      .input_container {
+      .notifications {
+        width: calc(95% - 20px);
+        margin: auto;
+        top: -55px;
+      }
+
+      .inputs {
         flex-direction: column;
         gap: 10px;
 
-        input {
+        .input_container {
           width: 100%;
         }
 

@@ -1,9 +1,14 @@
+const mainContainer = document.querySelector(".main_container");
 const productName = document.querySelector(".product_name");
 const productPrice = document.querySelector(".product_price");
 const productListContainer = document.querySelector(".product_list");
 const totalProduct = document.querySelector(".total_product");
 const totalPrice = document.querySelector(".total_price");
 const inputContainer = document.querySelector(".input_container");
+const form = document.querySelector(".inputs");
+const nameError = document.querySelector(".name_error");
+const priceError = document.querySelector(".price_error");
+const notifications = document.querySelector(".notifications")
 
 let productList = JSON.parse(localStorage.getItem("hazrat_product_list")) || [];
 
@@ -13,6 +18,11 @@ const generateUUID = () => {
 
 totalProduct.textContent = 0;
 totalPrice.textContent = 0;
+
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+  addProduct();
+});
 
 const getAllProduct = () => {
   productListContainer.innerHTML = "";
@@ -47,7 +57,7 @@ const getAllProduct = () => {
 getAllProduct();
 
 const addProduct = () => {
-  if (productName.value !== "" && productPrice.value !== "" ) {
+  if (productName.value !== "" && productPrice.value !== "") {
     productList = [
       ...productList,
       {
@@ -59,21 +69,56 @@ const addProduct = () => {
 
     localStorage.setItem("hazrat_product_list", JSON.stringify(productList));
 
+    getAllProduct();
+    showNotifications({
+      value: productName.value,
+      classname: "success_notifications",
+    });
+
     productName.value = "";
     productPrice.value = "";
-
-    getAllProduct();
+  } else {
+    if (productName.value === "") {
+      nameError.style.display = "block";
+      productName.classList.add("error_input");
+    }
+    if (productPrice.value === "") {
+      priceError.style.display = "block";
+      productPrice.classList.add("error_input");
+    }
   }
 };
 
+productName.addEventListener("focus", () => {
+  nameError.style.display = "none";
+  productName.classList.remove("error_input");
+});
+productPrice.addEventListener("focus", () => {
+  priceError.style.display = "none";
+  productPrice.classList.remove("error_input");
+});
+
 const deleteProduct = (id) => {
+  product = productList.find((product) => product.id === id);
   productList = productList.filter((product) => product.id !== id);
   localStorage.setItem("hazrat_product_list", JSON.stringify(productList));
   getAllProduct();
+  showNotifications({ value: product.name, classname: "delete_notifications" });
 };
 
-inputContainer.addEventListener("keydown", (e) => {
-    if(e.key === "Enter") {
-        addProduct();
-    }
-})
+const showNotifications = ({ value, classname }) => {
+  let notification = document.createElement("div");
+  notification.classList.add("notification_div");
+  let notificationText =
+    classname === "success_notifications" ? "əlavə edildi" : "silindi";
+  notification.textContent = `${value} adlı məhsul ${notificationText}`;
+  notifications.appendChild(notification)
+
+  setTimeout(() => {
+    notification.classList.add(classname);
+
+    setTimeout(() => {
+      notifications.removeChild(notification)
+    }, 3000);
+  },10)
+};
